@@ -930,7 +930,8 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
         one_line = _one_line_title(song_info["title"])
         base_caption = (
             "<blockquote>"
-            "<b>🎧 Frozen ✘ Music Streaming</b> (Local Playback)\n\n"
+            "<b>🎧 Frozen ✘ Music </b> \n\n"
+            
             f"❍ <b>Title:</b> {one_line}\n"
             f"❍ <b>Requested by:</b> {song_info['requester']}"
             "</blockquote>"
@@ -1411,8 +1412,8 @@ async def broadcast_handler(_, message):
 
 
 @bot.on_message(filters.command("frozen_check"))
-async def frozen_check_command(client: Client, message):
-    await message.reply_text("frozen check successful ✨")
+async def artist_check_command(client: Client, message):
+    await message.reply_text("artist check successful ✨")
 
 
 
@@ -1496,7 +1497,7 @@ threading.Thread(target=run_http_server, daemon=True).start()
 
 logger = logging.getLogger(__name__)
 
-frozen_check_event = asyncio.Event()
+artist_check_event = asyncio.Event()
 
 async def restart_bot():
     port = int(os.environ.get("PORT", 8080))
@@ -1511,12 +1512,12 @@ async def restart_bot():
     except Exception as e:
         logger.error(f"Error calling local restart endpoint: {e}")
 
-async def frozen_check_loop(bot_username: str):
+async def artist_check_loop(bot_username: str):
     while True:
         try:
             # 1) send the check command
-            await assistant.send_message(bot_username, "/frozen_check")
-            logger.info(f"Sent /frozen_check to @{bot_username}")
+            await assistant.send_message(bot_username, "/artist_check")
+            logger.info(f"Sent /artist_check to @{bot_username}")
 
             # 2) poll for a reply for up to 30 seconds
             deadline = time.time() + 30
@@ -1525,9 +1526,9 @@ async def frozen_check_loop(bot_username: str):
             while time.time() < deadline:
                 async for msg in assistant.get_chat_history(bot_username, limit=1):
                     text = msg.text or ""
-                    if "frozen check successful ✨" in text.lower():
+                    if "artist check successful ✨" in text.lower():
                         got_ok = True
-                        logger.info("Received frozen check confirmation.")
+                        logger.info("Received artist check confirmation.")
                         break
                 if got_ok:
                     break
@@ -1535,11 +1536,11 @@ async def frozen_check_loop(bot_username: str):
 
             # 3) if no confirmation, restart
             if not got_ok:
-                logger.warning("No frozen check reply—restarting bot.")
+                logger.warning("No artist check reply—restarting bot.")
                 await restart_bot()
 
         except Exception as e:
-            logger.error(f"Error in frozen_check_loop: {e}")
+            logger.error(f"Error in artist_check_loop: {e}")
 
         await asyncio.sleep(60)
 
@@ -1573,8 +1574,8 @@ if __name__ == "__main__":
     logger.info(f"✅ Bot Username: {BOT_USERNAME}")
     logger.info(f"✅ Bot Link: {BOT_LINK}")
 
-    # start the frozen‑check loop (no handler registration needed)
-    asyncio.get_event_loop().create_task(frozen_check_loop(BOT_USERNAME))
+    # start the artist‑check loop (no handler registration needed)
+    asyncio.get_event_loop().create_task(artist_check_loop(BOT_USERNAME))
 
     if not assistant.is_connected:
         logger.info("Assistant not connected; starting assistant client...")
