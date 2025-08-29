@@ -138,8 +138,6 @@ class Player:
 ### FILE: handlers.py
 from pyrogram import filters
 from pyrogram.types import Message
-from config import SUPPORT_CHAT, UPDATE_CHANNEL, ARTIST_CHECK_CHAT, LOG_CHAT
-from utils import format_seconds
 import asyncio
 
 player: Player = None
