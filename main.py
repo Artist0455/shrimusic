@@ -938,19 +938,21 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
         initial_progress = get_progress_bar_styled(0, total_duration)
 
         control_row = [
-            InlineKeyboardButton(text="▷", callback_data="pause"),
-            InlineKeyboardButton(text="II", callback_data="resume"),
-            InlineKeyboardButton(text="‣‣I", callback_data="skip"),
-            InlineKeyboardButton(text="▢", callback_data="stop"),
+        InlineKeyboardButton(text="▷", callback_data="pause"),
+        InlineKeyboardButton(text="II", callback_data="resume"),
+        InlineKeyboardButton(text="‣‣I", callback_data="skip"),
+        InlineKeyboardButton(text="▢", callback_data="stop"),
         ]
+
         progress_button = InlineKeyboardButton(text=initial_progress, callback_data="progress")
-        base_keyboard = InlineKeyboardMarkup([control_row, [progress_button]])
+        close_button = InlineKeyboardButton(text="❌ Close", callback_data="close")   # 👈 यह लाइन missing थी
 
         base_keyboard = InlineKeyboardMarkup([
         control_row,
         [progress_button],
         [close_button]
         ])
+
 
         # Use raw thumbnail if available
         thumb_url = song_info.get("thumbnail")
