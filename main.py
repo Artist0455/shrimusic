@@ -235,7 +235,6 @@ async def main():
 
     # initialize player
     pl = Player(app)
-    await pl.start()
     await set_player(pl)
 
     # register handlers using pyrogram's decorated style
