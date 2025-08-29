@@ -180,9 +180,7 @@ async def pause_handler(client, message: Message):
         await message.reply_text('⏸ Paused')
     
         await message.reply_text('Error: '+str(e))
-
-    async def resume_handler(client, message: Message):
-    try:
+        
         await player.resume()
         await message.reply_text('▶️ Resumed')
     except Exception as e:
