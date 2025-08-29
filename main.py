@@ -213,7 +213,6 @@ async def seek_handler(client, message: Message):
 ### FILE: main.py
 import asyncio
 from pyrogram import Client, idle
-from config import BOT_TOKEN, API_ID, API_HASH, OWNER_ID, ARTIST_CHECK_CHAT, SUPPORT_CHAT, UPDATE_CHANNEL
 from handlers import start_handler, play_handler, pause_handler, resume_handler, nowplaying_handler, seek_handler, set_player
 from player import Player
 import logging
