@@ -946,11 +946,11 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
         progress_button = InlineKeyboardButton(text=initial_progress, callback_data="progress")
         base_keyboard = InlineKeyboardMarkup([control_row, [progress_button]])
 
-base_keyboard = InlineKeyboardMarkup([
-    control_row,
-    [progress_button],
-    [close_button]
-])
+        base_keyboard = InlineKeyboardMarkup([
+        control_row,
+        [progress_button],
+        [close_button]
+        ])
 
         # Use raw thumbnail if available
         thumb_url = song_info.get("thumbnail")
