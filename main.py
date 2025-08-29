@@ -178,7 +178,7 @@ async def pause_handler(client, message: Message):
     try:
         await player.pause()
         await message.reply_text('⏸ Paused')
-    except Exception as e:
+    
         await message.reply_text('Error: '+str(e))
 
 async def resume_handler(client, message: Message):
@@ -234,7 +234,7 @@ async def artist_check_task(client: Client):
 
 
 async def main():
-    await app.start()
+
     # initialize player
     pl = Player(app)
     await pl.start()
