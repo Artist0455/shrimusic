@@ -925,7 +925,6 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
         'outtmpl': 'downloads/%(id)s.%(ext)s'
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(video_url, download=True)
         media_path = ydl.prepare_filename(info)
         await call_py.play(
             chat_id,
