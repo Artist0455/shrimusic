@@ -924,7 +924,7 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
         'format': 'bestaudio',
         'outtmpl': 'downloads/%(id)s.%(ext)s'
         }
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        yt_dlp.YoutubeDL(ydl_opts) as ydl:
         await call_py.play(
             chat_id,
             MediaStream(media_path, video_flags=MediaStream.Flags.IGNORE)
