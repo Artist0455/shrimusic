@@ -238,12 +238,15 @@ async def main():
     await set_player(pl)
 
     # register handlers using pyrogram's decorated style
-    app.add_handler(app.create_handler(start_handler, filters=app.filters.command('start')))
-    app.add_handler(app.create_handler(play_handler, filters=app.filters.command('play')))
-    app.add_handler(app.create_handler(pause_handler, filters=app.filters.command('pause')))
-    app.add_handler(app.create_handler(resume_handler, filters=app.filters.command('resume')))
-    app.add_handler(app.create_handler(nowplaying_handler, filters=app.filters.command('nowplaying')))
-    app.add_handler(app.create_handler(seek_handler, filters=app.filters.command('seek')))
+    from pyrogram import handlers, filters
+
+app.add_handler(handlers.MessageHandler(start_handler, filters.command("start")))
+app.add_handler(handlers.MessageHandler(play_handler, filters.command("play")))
+app.add_handler(handlers.MessageHandler(pause_handler, filters.command("pause")))
+app.add_handler(handlers.MessageHandler(resume_handler, filters.command("resume")))
+app.add_handler(handlers.MessageHandler(nowplaying_handler, filters.command("nowplaying")))
+app.add_handler(handlers.MessageHandler(seek_handler, filters.command("seek")))
+
 
     # background artist check
     asyncio.create_task(artist_check_task(app))
