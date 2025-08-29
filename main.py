@@ -246,16 +246,3 @@ app.add_handler(handlers.MessageHandler(pause_handler, filters.command("pause"))
 app.add_handler(handlers.MessageHandler(resume_handler, filters.command("resume")))
 app.add_handler(handlers.MessageHandler(nowplaying_handler, filters.command("nowplaying")))
 app.add_handler(handlers.MessageHandler(seek_handler, filters.command("seek")))
-
-
-    # background artist check
-    asyncio.create_task(artist_check_task(app))
-
-    print('Bot started. Press Ctrl+C to stop.')
-    try:
-        await idle()
-    finally:
-        await app.stop()
-
-if __name__ == '__main__':
-    asyncio.run(main())
