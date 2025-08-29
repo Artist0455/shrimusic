@@ -239,7 +239,6 @@ async def main():
 
     # register handlers using pyrogram's decorated style
     from pyrogram import handlers, filters
-
 app.add_handler(handlers.MessageHandler(start_handler, filters.command("start")))
 app.add_handler(handlers.MessageHandler(play_handler, filters.command("play")))
 app.add_handler(handlers.MessageHandler(pause_handler, filters.command("pause")))
