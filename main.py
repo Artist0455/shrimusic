@@ -241,21 +241,29 @@ async def main():
     import asyncio
 import logging
 from pyrogram import Client, idle, filters
+from config import BOT_TOKEN, API_ID, API_HASH, OWNER_ID, ARTIST_CHECK_CHAT
+from handlers import (
     start_handler,
     play_handler,
     pause_handler,
     resume_handler,
     nowplaying_handler,
     seek_handler,
-    set_player,
+    set_player
 )
 from player import Player
 
 logging.basicConfig(level=logging.INFO)
 
-app = Client("artist-music-bot", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH)
+app = Client(
+    "artist-music-bot",
+    bot_token=BOT_TOKEN,
+    api_id=API_ID,
+    api_hash=API_HASH
+)
 
-# ✅ Register handlers directly with decorators
+# ===================== COMMAND HANDLERS =====================
+
 @app.on_message(filters.command("start"))
 async def _start(client, message):
     await start_handler(client, message)
@@ -280,6 +288,7 @@ async def _nowplaying(client, message):
 async def _seek(client, message):
     await seek_handler(client, message)
 
+# ===================== BACKGROUND TASK =====================
 
 async def artist_check_task(client: Client):
     while True:
@@ -292,6 +301,7 @@ async def artist_check_task(client: Client):
             logging.warning("Artist check failed: %s", e)
         await asyncio.sleep(60)
 
+# ===================== MAIN =====================
 
 async def main():
     await app.start()
@@ -309,3 +319,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+    
