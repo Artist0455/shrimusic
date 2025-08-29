@@ -919,7 +919,6 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
 
         # Download & play locally
         media_path = await vector_transport_resolver(video_url)
-        except Exception:
         import yt_dlp
         ydl_opts = {
         'format': 'bestaudio',
