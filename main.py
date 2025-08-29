@@ -241,7 +241,6 @@ async def main():
     import asyncio
 import logging
 from pyrogram import Client, idle, filters
-from config import BOT_TOKEN, API_ID, API_HASH, OWNER_ID, ARTIST_CHECK_CHAT
 from handlers import (
     start_handler,
     play_handler,
