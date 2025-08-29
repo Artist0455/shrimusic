@@ -49,7 +49,6 @@ import os
 from pytgcalls import PyTgCalls, idle
 from pytgcalls.exceptions import NoActiveGroupCall
 from pyrogram import Client
-from config import DOWNLOAD_DIR
 from yt_dlp import YoutubeDL
 
 class Song:
