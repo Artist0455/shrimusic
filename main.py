@@ -22,7 +22,6 @@ if not BOT_TOKEN or not API_ID or not API_HASH:
 import os
 import asyncio
 import shutil
-from mutagen.mp3 import MP3
 from pathlib import Path
 
 async def ensure_dir(path):
