@@ -920,12 +920,12 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
         # Download & play locally
         try:
         media_path = await vector_transport_resolver(video_url)
-    except Exception:
+        except Exception:
         import yt_dlp
         ydl_opts = {'format': 'bestaudio', 'outtmpl': 'downloads/%(id)s.%(ext)s'}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(video_url, download=True)
-            media_path = ydl.prepare_filename(info)
+        info = ydl.extract_info(video_url, download=True)
+        media_path = ydl.prepare_filename(info)
         await call_py.play(
             chat_id,
             MediaStream(media_path, video_flags=MediaStream.Flags.IGNORE)
