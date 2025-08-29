@@ -919,11 +919,6 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
 
         # Download & play locally
         media_path = await vector_transport_resolver(video_url)
-        import yt_dlp
-        ydl_opts = {
-        'format': 'bestaudio',
-        'outtmpl': 'downloads/%(id)s.%(ext)s'
-        }
         await call_py.play(
             chat_id,
             MediaStream(media_path, video_flags=MediaStream.Flags.IGNORE)
@@ -935,9 +930,9 @@ async def fallback_local_playback(chat_id: int, message: Message, song_info: dic
         one_line = _one_line_title(song_info["title"])
         base_caption = (
             "<blockquote>"
-            "<b>🎧 Frozen ✘ Music Streaming</b> (Local Playback)\n\n"
-            f"❍ <b>Title:</b> {one_line}\n"
-            f"❍ <b>Requested by:</b> {song_info['requester']}"
+            "<b>❤️ Artist ✘ Music</b> \n\n"
+            f"✯ <b>𝐓ɩttɭ𝛆:</b> {one_line}\n"
+            f"✯ <b>Requested by:</b> {song_info['requester']}"
             "</blockquote>"
         )
         initial_progress = get_progress_bar_styled(0, total_duration)
