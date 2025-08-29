@@ -1,20 +1,3 @@
-
-
-### FILE: requirements.txt
-pyrogram==2.0.101
-pytgcalls==3.0.4
-youtube-dl==2021.12.17
-yt-dlp==2023.12.1
-pydub==0.25.1
-aiohttp==3.8.1
-python-dotenv==1.0.0
-mutagen==1.46.0
-uvloop==0.17.0
-
-### FILE: Procfile
-web: python main.py
-
-### FILE: config.py
 import os
 from dotenv import load_dotenv
 load_dotenv()
