@@ -213,7 +213,6 @@ async def seek_handler(client, message: Message):
 ### FILE: main.py
 import asyncio
 from pyrogram import Client, idle
-from player import Player
 import logging
 
 logging.basicConfig(level=logging.INFO)
