@@ -47,7 +47,6 @@ def get_duration(path):
 import asyncio
 import os
 from pytgcalls import PyTgCalls, idle
-from pytgcalls.types import AudioPiped
 from pytgcalls.exceptions import NoActiveGroupCall
 from pyrogram import Client
 from utils import ensure_dir, get_duration, format_seconds
