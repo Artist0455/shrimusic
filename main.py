@@ -238,10 +238,76 @@ async def main():
     await set_player(pl)
 
     # register handlers using pyrogram's decorated style
-    from pyrogram import handlers, filters
-app.add_handler(handlers.MessageHandler(start_handler, filters.command("start")))
-app.add_handler(handlers.MessageHandler(play_handler, filters.command("play")))
-app.add_handler(handlers.MessageHandler(pause_handler, filters.command("pause")))
-app.add_handler(handlers.MessageHandler(resume_handler, filters.command("resume")))
-app.add_handler(handlers.MessageHandler(nowplaying_handler, filters.command("nowplaying")))
-app.add_handler(handlers.MessageHandler(seek_handler, filters.command("seek")))
+    import asyncio
+import logging
+from pyrogram import Client, idle, filters
+from config import BOT_TOKEN, API_ID, API_HASH, OWNER_ID, ARTIST_CHECK_CHAT
+from handlers import (
+    start_handler,
+    play_handler,
+    pause_handler,
+    resume_handler,
+    nowplaying_handler,
+    seek_handler,
+    set_player,
+)
+from player import Player
+
+logging.basicConfig(level=logging.INFO)
+
+app = Client("artist-music-bot", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH)
+
+# ✅ Register handlers directly with decorators
+@app.on_message(filters.command("start"))
+async def _start(client, message):
+    await start_handler(client, message)
+
+@app.on_message(filters.command("play"))
+async def _play(client, message):
+    await play_handler(client, message)
+
+@app.on_message(filters.command("pause"))
+async def _pause(client, message):
+    await pause_handler(client, message)
+
+@app.on_message(filters.command("resume"))
+async def _resume(client, message):
+    await resume_handler(client, message)
+
+@app.on_message(filters.command("nowplaying"))
+async def _nowplaying(client, message):
+    await nowplaying_handler(client, message)
+
+@app.on_message(filters.command("seek"))
+async def _seek(client, message):
+    await seek_handler(client, message)
+
+
+async def artist_check_task(client: Client):
+    while True:
+        try:
+            if ARTIST_CHECK_CHAT:
+                await client.send_message(ARTIST_CHECK_CHAT, "Artist check successful ✨")
+            else:
+                await client.send_message(OWNER_ID, "Artist check successful ✨")
+        except Exception as e:
+            logging.warning("Artist check failed: %s", e)
+        await asyncio.sleep(60)
+
+
+async def main():
+    await app.start()
+    pl = Player(app)
+    await pl.start()
+    await set_player(pl)
+
+    asyncio.create_task(artist_check_task(app))
+
+    print("Bot started. Press Ctrl+C to stop.")
+    try:
+        await idle()
+    finally:
+        await app.stop()
+
+if __name__ == "__main__":
+    asyncio.run(main())
